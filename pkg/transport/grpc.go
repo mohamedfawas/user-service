@@ -3,14 +3,14 @@ package transport
 import (
 	"context"
 
-	kitendpoint "github.com/go-kit/kit/endpoint" // Using alias for go-kit endpoint
+	kitendpoint "github.com/go-kit/kit/endpoint"
 	"github.com/mohamedfawas/user-service/pkg/endpoint"
 	pb "github.com/mohamedfawas/user-service/proto"
 )
 
 type grpcServer struct {
-	createUser kitendpoint.Endpoint // Using the aliased import
-	getUser    kitendpoint.Endpoint // Using the aliased import
+	createUser kitendpoint.Endpoint
+	getUser    kitendpoint.Endpoint
 	pb.UnimplementedUserServiceServer
 }
 

@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+	// listen for incoming connections on TCP port 50051
 	listener, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
@@ -21,7 +22,12 @@ func main() {
 	endpoints := endpoint.NewEndpoints(svc)
 
 	grpcServer := grpc.NewServer()
+
+	// associates a service implementation with the grpcServer
+	// so that the server can handle incoming gRPC requests for the UserService
 	pb.RegisterUserServiceServer(grpcServer, transport.NewGRPCServer(endpoints))
+	// transport.NewGRPCServer(endpoints) : allows the business logic
+	// to be invoked when the gRPC server receives requests
 
 	log.Println("Starting gRPC server on :50051")
 	if err := grpcServer.Serve(listener); err != nil {
